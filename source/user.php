@@ -191,7 +191,8 @@ class user{
                 $db = new database();
                 if($db->getStatus()){
                     $stmt = $db->getCon()->prepare($this->getSearchQuery());
-                    $stmt->execute(array($this->userId(), $item));
+                    $searchItem = "%$item%";
+                    $stmt->execute(array($searchItem));
                     $result = $stmt->fetchAll();
                     $db->closeConnection();
                     return json_encode($result);
@@ -355,7 +356,7 @@ class user{
         return "SELECT * FROM products order by title";
     }
     private function getSearchQuery(){
-        return "SELECT * FROM `products` WHERE user_id = ? AND title = ?";
+        return "SELECT * FROM `products` WHERE title like ?";
     }
     private function getCartQuery(){
         return "SELECT * FROM `carts` WHERE user_id = ?";

@@ -162,17 +162,8 @@ var doSearch =()=>{
     url: "./source/router.php",
     data: {choice: 'doSearch', Item:$('#searchProduct').val()},
     success: function(data){
-      var json = JSON.parse(data);
-
-      if(json.length > 0){
-        var str = "";
-        json.forEach(element =>{
-          str = 'search.php?search='+element.title+'&search_now=search';
-        });
-        window.location.href = str;
-      }else{
-        alert("The product is not found!");
-      }
+      var searchItem = $('#searchProduct').val();
+      window.location.href = 'search.php?search='+searchItem+'&search_now=search';
     },
     error: function(xhr, ajaxOptions, thrownError){
       alert(thrownError);

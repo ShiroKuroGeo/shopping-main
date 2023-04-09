@@ -47,12 +47,10 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-2">
-                    <div class="searchInbox">
-                        <div class="input-group input-group-sm">
-                            <input type="search" class="form-control" name="searchProduct" id="searchProduct" placeholder="Search a Product">
-                            <button class="btn btn-outline-success bg-light" id="btnSearch">Search</button>
-                        </div>
-                    </div>
+                    <form class="d-flex" role="search" action="search.php" method="get">
+                        <input class="form-control  me-2" name="search" type="search" placeholder="Search here..." aria-label="Search">
+                        <input type="submit" name="search_now" value="search" class="button">
+                    </form>
                 </div>
                 <div class="col-lg-7 d-flex justify-content-end align-items-end">
                     <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
