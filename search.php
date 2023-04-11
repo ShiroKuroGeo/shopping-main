@@ -129,11 +129,9 @@ cart();
             <div class="row">
                 <h1 class='heading'>Search Result...</h1>
                 <?php
-                getsearch();
-                                      getcategory_name();   
-                                    
-
-                                        ?>
+                    getsearch();
+                    getcategory_name();  
+                ?>
 </section>
 <!-- Product end here -->
 <!--footer start here-->

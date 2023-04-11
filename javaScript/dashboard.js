@@ -1,7 +1,7 @@
 $(document).ready(function(){
     let tmp = localStorage.getItem('isloggedin');
     if (tmp == 404) {
-        window.location.href = "./.";
+        window.location.href = "./dashboard.php";
     }
     viewCategory();
     viewCartsNumber();
@@ -13,10 +13,14 @@ $('#btnSearch').click(function(){
 });
 
 $('#addThisProductToCart').click(function(){
-  prodcutAddThisToCart();
+  if(confirm("Are you sure you want to add this product?")){
+    prodcutAddThisToCart();
+  }else{
+    window.location.href = "dashboard.php";
+  }
 });
 
-
+//Adding product
 function prodcutAddThisToCart(){
   $.ajax({
     type: "POST",
@@ -129,7 +133,7 @@ function toModal(id){
             <input type="text" id="productIDAddThisCart" class="form-control visually-hidden" value="${Element.product_id}" disabled="disabled">
           </div>
           <div class="input-group mt-2">
-            <input type="text" id="usernameAddThisCart" class="form-control" placeholder="Enter Username">
+            <input type="text" id="usernameAddThisCart" class="form-control visually-hidden" value="" placeholder="Enter Username">
           </div>
           <div class="input-group mt-2">
             <input type="text" id="imageAddThisCart" class="form-control visually-hidden" value="${Element.image_1}" disabled="disabled">
@@ -141,7 +145,7 @@ function toModal(id){
             <input type="text" id="priceAddThisCart" class="form-control visually-hidden" value="${Element.price}" disabled="disabled">
           </div>
           <div class="input-group mt-2">
-            <input type="text" id="quantityAddThisCart" class="form-control" placeholder="Quantity value">
+            <input type="text" id="quantityAddThisCart" class="form-control visually-hidden" value="1" placeholder="Quantity value">
           </div>
           <div class="input-group mt-2">
             <input type="text" id="totalAddThisCart" class="form-control visually-hidden" value="${Element.price}" disabled="disabled">

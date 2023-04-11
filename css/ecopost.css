@@ -6,19 +6,12 @@
     box-sizing: border-box;
     outline: none; border:none;
     text-decoration: none;
-   transition: all .2s linear;
+    transition: all .2s linear;
 
-}
-html{   
-
-    font-size: 78%;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-    scroll-padding-top: 7rem;
-    
 }
 body{
     background-color: #eee;
+    overflow-y: scroll;
 
 }
 .navbar.navbar-expand-lg{
@@ -48,8 +41,6 @@ body{
 .form-control{
     border: none;
 }
-
-
 
 .d-flex {
     height: 3rem;
@@ -139,11 +130,6 @@ hr{
  text-decoration: none ;
  color: black;
  font-size: 15px;
-}
-.pic img{
-    width:4rem;
-    clip-path: circle();
-    margin-right:5px;
 }
 .home{
     margin-top: 2rem;
@@ -279,11 +265,6 @@ clip-path: circle();
 .col-form-label{
     margin-left: 2rem;
 }
-.name img{
-    width: 5rem;
-    clip-path: circle();
-    margin: 5px;
-}
 .mb-3 a{
     text-decoration: none;
     color: black;
@@ -319,19 +300,9 @@ clip-path: circle();
     text-decoration: none;
     color: #555;
 }
-.prof img {
-    width: 4rem;
-    clip-path: circle();
-    margin: 10px;
-}
 .container.mt-5 col{
     width: 50rem;
     height: 60rem;
-}
-.figure img{
-    width:60rem;
-    height: 50rem;
-
 }
 .figure .figure-caption{
     margin-bottom: 1rem;

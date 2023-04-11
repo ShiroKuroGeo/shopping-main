@@ -256,19 +256,9 @@ hr{
    color: #555;
 }
 
-.prof img {
-   width: 4rem;
-   clip-path: circle();
-   margin: 5px;
-}
 .container.mt-5 col{
    width: 50rem;
    height: 60rem;
-}
-.figure img{
-   width:60rem;
-   height: 45rem;
-
 }
 .figure .figure-caption{
    margin-bottom: 1rem;
@@ -385,8 +375,8 @@ color: black;
     clip-path: circle();
     width: 20rem;
     height: 10rem;
-margin-bottom: 2rem;
-margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
 }
 .card-body h5{
     text-align: center;

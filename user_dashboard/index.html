@@ -34,25 +34,13 @@
                                     <li>
                                     <a class="nav-link" href="index.php?my_order">My Order</a>
                                     </li>
-                                    <li >
-                                    <a class="nav-link" href="index.php?stock"> Stock Availability</a>
-                                    </li>
                                     <li>
                                     <a class="nav-link" href="index.php?categories"> Insert Categories</a>
                                     </li>
-                                   <!--  <li >
-                                    <a class="nav-link" href="#"> <i class="fa fa-shopping-cart" aria-hidden="true"><sup>1</sup></i></a>
-                                    </li> -->
+                                    <li>
+                                      <a class="nav-link active" href="#"><div class="profilePic"></div></a>
+                                    </li>
                                     </ul>  
-                                    
-
-                                    <img src="../images/profile.png" class="profile" onclick="toggleMenu()">
-                                    <div class="sub-menu-wrap" id="subMenu">
-                                    <div class="sub-menu">
-                                    <div class="user-info">
-                                    <img src="../images/profile.png" >
-                                    <h3>name</h3>
-                                    </div>
                                     <hr>
 
                                         <a href="" class="sub-menu-link">
@@ -95,10 +83,7 @@
                                         include('manage_order.php');
                                       }
                                       if(isset($_GET['my_order'])){
-                                        include('my_order.php');
-                                      }
-                                      if(isset($_GET['stock'])){
-                                        include('stock.php');
+                                        include('my_order.html');
                                       }
                                       ?>
                                     </div>

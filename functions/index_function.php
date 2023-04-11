@@ -1,5 +1,5 @@
 <?php
-include "includes/db_con.php";
+include "./includes/db_con.php";
 session_start();
 /* category funtion */
 function getcategory(){
@@ -125,8 +125,6 @@ function getcategories(){
                         }
                         }
 
-
-
 /* search funtion */
 function getsearch(){  
     global $conn;
@@ -183,10 +181,8 @@ function product_image_1(){
         $product_id=$_GET['product_id'];
     $select ="SELECT * FROM `products` WHERE product_id=$product_id";
     $result=mysqli_query($conn,$select);
-    while($row=mysqli_fetch_assoc($result)){       
+    while($row=mysqli_fetch_assoc($result)){ 
         $image_1=$row['image_1'];
-        $image_2=$row['image_2'];
-        $image_3=$row['image_3'];
         $title=$row['title'];
         $price=$row['price'];
         $description=$row['description'];
@@ -204,12 +200,6 @@ function product_image_1(){
     <div class='carousel-item active '>
       <img src='./user_dashboard/product_uploads/$image_1' class='d-block w-100' alt='...' class='images'>
     </div>
-    <div class='carousel-item'>
-      <img src='./user_dashboard/product_uploads/$image_2' class='d-block w-100' alt='...'  class='images'>
-    </div>
-    <div class='carousel-item'>
-      <img src='./user_dashboard/product_uploads/$image_3'class='d-block w-100' alt=''  class='images'>
-    </div>
   </div>
   <button class='carousel-control-prev' type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide='prev'>
     <span class='carousel-control-prev-icon' aria-hidden='true'></span>
@@ -221,15 +211,12 @@ function product_image_1(){
   </button>
 </div>
      <h5 class='text'>$title</h5>       
-<p class='text-center'>₱$price</p>
+<p class='text-center ps-4'>₱$price</p>
 
-
-<a href='index.php?cart=$product_id'> 
-<button type='button' class='btn btn-outline-success'><svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='currentColor' class='bi bi-cart' viewBox='0 0 16 16'>
+<button type='button' onclick='toModal($product_id);' class='btn btn-outline-success'  data-bs-toggle='modal' data-bs-target='#addtocart'><svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='currentColor' class='bi bi-cart' viewBox='0 0 16 16'>
 <path d='M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z'/>
 </svg>Add to cart</button>
 </div
-</a> 
                         
       
         ";
@@ -451,6 +438,4 @@ function total_price(){
          echo $total;
 
     }
-
- 
 ?> 

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/submenu.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/rating.css">
     
 </head>
 <body style="overflow-x: hidden;">
@@ -29,8 +30,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" id="addThisProductToCart" class="btn btn-primary">Save changes</button>
+                <button type="button" id="addThisProductToCart" class="btn btn-primary">Yes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
             </div>
             </div>
         </div>
@@ -51,7 +52,7 @@
                     <div class="searchInbox">
                         <div class="input-group input-group-sm">
                             <input type="search" class="form-control" name="searchProduct" id="searchProduct" placeholder="Search here...">
-                            <button class="btn btn-outline-success " id="btnSearch">Search</button>
+                            <button class="btn btn-outline-success" id="btnSearch">Search</button>
                         </div>
                     </div>
                 </div>
@@ -61,20 +62,20 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav">
-                            <a class="nav-link active mt-1" aria-current="page" href="userDashboard.html">Home</a>
+                            <a class="nav-link active mt-1" aria-current="page" href="dashboard.php">Home</a>
                             <a class="nav-link active mt-1" href="product.php">Product</a>
                             <a class="nav-link active mt-1" href="dashCartTable.php"><i class="fa fa-shopping-cart" aria-hidden="true"><sup id="cartNumber"></sup></i></a>
-                            <a class="nav-link active" href="#"><img src="./images/profile.png" width="60px" class="profile" onclick="toggleMenu()"></a>
+                            <a class="nav-link active" href="#"><div class="profilePic"></div></a>
                             <nav>
                                 <div class="sub-menu-wrap" id="subMenu">
                                     <div class="sub-menu">
                                         <div class="user-info">
-                                            <img src="./images/profile.png" class="profile" width="100px">
-                                            <h3 id="nameOfUser">Name</h3>
+                                            <div class="profilePic"></div>
+                                            <h3 id="nameOfUserES"></h3>
                                         </div>
                                         <hr>
                                         <a href="./eco-post/home.php" class="sub-menu-link">
-                                            <img src="./images/profile.png" width="100px">
+                                            <div class="profilePic"></div>
                                             <p>profile</p>
                                             <span>></span>
                                         </a>
@@ -112,7 +113,7 @@
                 <!-- For navbar sticky only class="ms-2 mt-2-->
             </div>
             <h1 class="ecoCategoriesHeader " >
-                ECO CATEGORIES               <hr>
+                ECO CATEGORIES<hr>
           
             </h1>
             <div class="getCategory d-flex justify-content-center align-items-center">
@@ -121,7 +122,7 @@
                 </div>
             </div>
         </section>
-        <section class="categories">
+        <section class="categories vh-100">
             <div class="row border">
                 <div class="col-lg-12">
                     <div class="forNavbar">
@@ -149,6 +150,7 @@
     <script src="javaScript/jquery.js"></script>
     <script src="javaScript/toggle.js"></script>
     <script src="javaScript/dashboard.js"></script>
+    <script src="javaScript/userInformation.js"></script>
     <script src="javaScript/UserLogout.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

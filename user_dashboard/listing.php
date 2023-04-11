@@ -11,7 +11,30 @@ include "../includes/db_con.php";
         $id=$row_data['user_id'];
         $name=$row_data['username']; */
       
-        
+            
+        if(isset($_FILES['images'])) {
+          // Connect to your database (replace with your own database connection code)
+          $conn = new mysqli('localhost', 'username', 'password', 'dbname');
+      
+          // Loop through each file
+          $uploadedFiles = $_FILES['images'];
+          $fileCount = count($uploadedFiles['name']);
+      
+          for($i = 0; $i < $fileCount; $i++) {
+              $fileName = $uploadedFiles['name'][$i];
+              $fileTmpName = $uploadedFiles['tmp_name'][$i];
+      
+              // Read file data
+              $fileData = file_get_contents($fileTmpName);
+      
+              // Prepare and execute an SQL query to insert file data into the database
+              $stmt = $conn->prepare("INSERT INTO images (image_1, countDataImage) VALUES (?, ?)");
+              $stmt->bind_param("ss", $fileName, $fileData);
+              $stmt->execute();
+      
+              echo 'File ' . $fileName . ' has been uploaded and inserted into the database successfully.<br>';
+          }
+      }
 
     
     $title=$_POST['title'];
@@ -19,34 +42,15 @@ include "../includes/db_con.php";
   $cat=$_POST['cat'];
   $description=$_POST['description'];
   $status='true';
-  
-  
-  $image1=$_FILES['file1']['name'];
-  $image2=$_FILES['file2']['name'];
-  $image3=$_FILES['file3']['name']; 
 
-  $temp_file1=$_FILES['file1']['tmp_name'];
-   $temp_file2=$_FILES['file2']['tmp_name'];
-  $temp_file3=$_FILES['file3']['tmp_name']; 
-
-  if ($image1>50000  && $image2 >50000 & $image3>50000 ){
-    echo "Sorry your file is too large.";
-  }else
-  {
-    echo "File uploaded successfully.";
-
-  }
-
-   if( $title=='' or $price=='' or $cat==''  or $description=='' or $image1=='' or $image2=='' or $image3=='' ){
+   if( $title=='' or $price=='' or $cat==''  or $description==''){
    echo "<script>alert('Please fill all the fields!')</script>";
    exit();
    }else{
     move_uploaded_file($temp_file1,"./product_uploads/$image1");
-    move_uploaded_file($temp_file2,"./product_uploads/$image2");
-    move_uploaded_file($temp_file3,"./product_uploads/$image3"); 
       
-   $insert = "INSERT INTO `products` (title,price,category,description,status,date,image_1,image_2,image_3)
-   VALUES ('$title','$price','$cat','$description','$status',NOW(),'$image1','$image2','$image3')";
+   $insert = "INSERT INTO `products` (title,price,category,description,status,date,image_1)
+   VALUES ('$title','$price','$cat','$description','$status',NOW())";
    $result=mysqli_query($conn,$insert);
    if ($result) {
    echo "<script>alert('Product has been created successfully.')</script>";
@@ -63,9 +67,7 @@ include "../includes/db_con.php";
                              <form action="" method="post" enctype = "multipart/form-data" >
                              <div class="create_listing text-center ">   
                              <h2>Create new Listing</h2>
-                             <input type="file" name="file1"  class="files"placeholder="file" multiple><br>
-                             <input type="file" name="file2"  class="files"placeholder="file"><br>
-                             <input type="file" name="file3"  class="files"placeholder="file"><br> 
+                             <input type="file" name="images[]" multiple> 
                              <input type="text" name="title"id="name" placeholder="Title"><br>
                              <input type="number" name="price" id="name" placeholder="Price"><br>
                              <select name="cat" id="options">

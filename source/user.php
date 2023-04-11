@@ -8,6 +8,9 @@ class user{
     public function doLogin($email, $password){
         return $this->login($email, $password);
     }
+    public function doGetInfoUser(){
+        return $this->getInfoUser();
+    }
     public function doAddToCart($product, $user, $image, $title, $price, $qt, $total){
         return $this->addToCart($product, $user, $image, $title, $price, $qt, $total);
     }
@@ -26,6 +29,9 @@ class user{
     public function doGetCart(){
         return $this->cartTable();
     }
+    public function doCartTableToOrder($id){
+        return $this->cartTableToOrder($id);
+    }
     public function doClickProduct($item){
         return $this->clickProduct($item);
     }
@@ -35,6 +41,28 @@ class user{
     public function doDeleteCartQuery($id){
         return $this->deleteCarts($id);
     }
+    public function doInsertEcoPost($description, $photo, $video, $status){
+        return $this->addEcoPosting($description, $photo, $video, $status);
+    }
+    public function doGetDataEcoPost(){
+        return $this->getDataEcoPost();
+    }
+    public function doGetEcoPostTimeline(){
+        return $this->getEcoPostTimeline();
+    }
+    public function doGetMessageLink($linkMessage){
+        return $this->getMessageLink($linkMessage);
+    }
+    public function doChangeProfile($photo){
+        return $this->changeProfile($photo);
+    }
+    public function doSearchUser($user){
+        return $this->searchUser($user);
+    }
+    public function doInsertOrder($title,$total_price,$Qt,$address,$P_method,$status){
+        return $this->insertOrder($title,$total_price,$Qt,$address,$P_method,$status);
+    }
+
 
     private function register($fname, $lname, $user, $address, $phone, $email, $pass){
         try {
@@ -92,6 +120,29 @@ class user{
         }
     }
 
+    //Function of getting the information of the user
+    private function getInfoUser(){
+        try {
+            if ($this->checkLogin($_SESSION['email'],$_SESSION['password'])) {
+                $db = new database();
+                if ($db->getStatus()) {
+                    $stmt = $db->getCon()->prepare($this->getInfoQuery());
+                    $stmt->execute(array($_SESSION['email'],$_SESSION['password']));
+                    $result = $stmt->fetchAll();
+                    $db->closeConnection();
+                    return json_encode($result);
+                }else{
+                    return "403";
+                }
+            }else{
+                return "403";
+            }
+        }catch(PDOExeption $th){
+            return "501";
+        }
+    }
+
+    //Function of adding product to cart
     private function addToCart($product, $user, $image, $title, $price, $qt, $total){
         try {
             if($this->checkLogin($_SESSION['email'],$_SESSION['password'])) {
@@ -207,6 +258,28 @@ class user{
         }
     }
 
+    private function searchUser($user){
+        try{
+            if($this->checkLogin($_SESSION['email'],$_SESSION['password'])){
+                $db = new database();
+                if($db->getStatus()){
+                    $stmt = $db->getCon()->prepare($this->searchUserQuery());
+                    $searchUser = "%$usert%";
+                    $stmt->execute(array($searchItem));
+                    $result = $stmt->fetchAll();
+                    $db->closeConnection();
+                    return json_encode($result);
+                }else{
+                    return "403";
+                }
+            }else{
+                return "403";
+            }
+        }catch(PDOExeption $th){
+            return "501";
+        }
+    }
+
     private function clickProduct($item){
         try{
             if($this->checkLogin($_SESSION['email'],$_SESSION['password'])){
@@ -275,6 +348,28 @@ class user{
         }
     }
 
+    private function cartTableToOrder($id){
+        try{
+            if($this->checkLogin($_SESSION['email'],$_SESSION['password'])){
+                $db = new database();
+                if($db->getStatus()){
+                    $stmt = $db->getCon()->prepare($this->getCartQuery2());
+                    $stmt->execute(array($id));
+                    $result = $stmt->fetchAll();
+                    $db->closeConnection();
+                    return json_encode($result);
+                }else{
+                    return "403";
+                }
+            }else{
+                return "403";
+            }
+        }catch(PDOExeption $th){
+            return "501";
+        }
+    }
+
+    //Function of updating the cart
     private function updateCartQuery($qt, $id){
         try{
             if($this->checkLogin($_SESSION['email'],$_SESSION['password'])){
@@ -300,6 +395,159 @@ class user{
             return "501";
         }
     }
+
+    //function of inserting posting in eco post
+    private function addEcoPosting($description, $photo, $video, $status){
+        try {
+            if ($this->checkLogin($_SESSION['email'],$_SESSION['password'])) {
+                $db = new database();
+                if ($db->getStatus()) {
+                    $stmt = $db->getCon()->prepare($this->insertEcoPostQuery());
+                    $stmt->execute(array($this->userId(), $description, date("l jS \of F Y h:i:s A"), date("l jS \of F Y h:i:s A"), $photo, $video, $status));
+                    $result = $stmt->fetch();
+                    if (!$result) {
+                        $db->closeConnection();
+                        return "success";
+                    }else{
+                        $db->closeConnection();
+                        return "failed";
+                    }
+                }else{
+                    return "403";
+                }
+            } else {
+                return "403";
+            }
+        } catch (PDOException $th) {
+            return "501";
+        }
+    }
+
+    private function getMessageLink($linkMessage){
+        try {
+            if ($this->checkLogin($_SESSION['email'],$_SESSION['password'])) {
+                $db = new database();
+                if ($db->getStatus()) {
+                    $stmt = $db->getCon()->prepare($this->getMessageLinkQuery());
+                    $stmt->execute(array($linkMessage, $_SESSION['email'],$_SESSION['password']));
+                    $result = $stmt->fetch();
+                    if (!$result) {
+                        $db->closeConnection();
+                        return "success";
+                    }else{
+                        $db->closeConnection();
+                        return "failed";
+                    }
+                }else{
+                    return "403";
+                }
+            } else {
+                return "403";
+            }
+        } catch (PDOException $th) {
+            return "501";
+        }
+    }
+
+    //Function of retrieving data to eco post
+    private function getDataEcoPost(){
+        try{
+            if($this->checkLogin($_SESSION['email'],$_SESSION['password'])){
+                $db = new database();
+                if($db->getStatus()){
+                    $stmt = $db->getCon()->prepare($this->getEcoPostQuery());
+                    $stmt->execute(array($this->userId()));
+                    $result = $stmt->fetchAll();
+                    $db->closeConnection();
+                    return json_encode($result);
+                }else{
+                    return "403";
+                }
+            }else{
+                return "403";
+            }
+        }catch(PDOExeption $th){
+            return "501";
+        }
+    }
+
+    private function getEcoPostTimeline(){
+        try{
+            if($this->checkLogin($_SESSION['email'],$_SESSION['password'])){
+                $db = new database();
+                if($db->getStatus()){
+                    $stmt = $db->getCon()->prepare($this->getEcoPostTimelineQuery());
+                    $stmt->execute(array());
+                    $result = $stmt->fetchAll();
+                    $db->closeConnection();
+                    return json_encode($result);
+                }else{
+                    return "403";
+                }
+            }else{
+                return "403";
+            }
+        }catch(PDOExeption $th){
+            return "501";
+        }
+    }
+
+    private function changeProfile($photo){
+        try {
+            if ($this->checkLogin($_SESSION['email'],$_SESSION['password'])) {
+                $db = new database();
+                if ($db->getStatus()) {
+                    $stmt = $db->getCon()->prepare($this->getChangeProfile());
+                    $stmt->execute(array($photo, $_SESSION['email'],$_SESSION['password']));
+                    $result = $stmt->fetch();
+                    if (!$result) {
+                        $db->closeConnection();
+                        return "success";
+                    }else{
+                        $db->closeConnection();
+                        return "failed";
+                    }
+                }else{
+                    return "403";
+                }
+            } else {
+                return "403";
+            }
+        } catch (PDOException $th) {
+            return "501";
+        }
+    }
+
+    private function insertOrder($title,$total_price,$Qt,$address,$P_method,$status){
+        try {
+            if ($this->checkLogin($_SESSION['email'],$_SESSION['password'])) {
+                $db = new database();
+                if ($db->getStatus()) {
+                    $D_ordered = new DateTime();
+                    $D_ordered->add(new DateInterval('P7D'));
+                    $D_deliver = $D_ordered->format('Y-m-d');
+                    $totalPrice = $total_price * $Qt;
+                    $stmt = $db->getCon()->prepare($this->insertOrderQuery());
+                    $stmt->execute(array($this->userId(), $title, $totalPrice, $Qt, $address, date('Y-m-d'), $D_deliver, $P_method, $status));
+                    $result = $stmt->fetch();
+                    if (!$result) {
+                        $db->closeConnection();
+                        return "success";
+                    }else{
+                        $db->closeConnection();
+                        return "failed";
+                    }
+                }else{
+                    return "403";
+                }
+            } else {
+                return "403";
+            }
+        } catch (PDOException $th) {
+            return "501";
+        }
+    }
+
 
     private function userId(){
         try{
@@ -342,6 +590,9 @@ class user{
     private function loginQuery(){
         return "SELECT * FROM tbl_user WHERE `email` = ? AND `password` = ?";
     }
+    private function getInfoQuery(){
+        return "SELECT * FROM tbl_user where `email` = ? AND `password` = ?";
+    }
 
     private function insertToCartQuery(){
         return "INSERT INTO `carts`(`product_id`, `user_id`, `username`, `image`, `title`, `price`, `Qt`, `total_price`) VALUES (?,?,?,?,?,?,?,?)";
@@ -361,6 +612,9 @@ class user{
     private function getCartQuery(){
         return "SELECT * FROM `carts` WHERE user_id = ?";
     }
+    private function getCartQuery2(){
+        return "SELECT * FROM `carts` WHERE product_id = ?";
+    }
     private function getClickProductQuery(){
         return "SELECT * FROM `products` WHERE product_id = ?";
     }
@@ -370,6 +624,26 @@ class user{
     private function getDeleteCartQuery(){
         return "DELETE FROM `carts` where id = ?";
     }
-    
+    private function insertEcoPostQuery(){
+        return "INSERT INTO `post`(`user_id`, `caption`, `d_c`, `d_u`, `image`, `video`, `status`) VALUES (?,?,?,?,?,?,?)";
+    }
+    private function getEcoPostQuery(){
+        return "SELECT * FROM `post` WHERE user_id = ?";
+    }
+    private function getEcoPostTimelineQuery(){
+        return "SELECT * FROM `post`";
+    }
+    private function getMessageLinkQuery(){
+        return "UPDATE `tbl_user` SET `messageLink`= ? WHERE `email` = ? AND `password` = ?";
+    }
+    private function getChangeProfile(){
+        return "UPDATE `tbl_user` SET `image`= ? WHERE `email` = ? AND `password` = ?";
+    }
+    private function searchUserQuery(){
+        return "SELECT * FROM `tbl_user` WHERE email like ?";
+    }
+    private function insertOrderQuery(){
+        return "INSERT INTO `c_order`(`user_id`, `title`, `total_price`, `Qt`, `address`, `D_ordered`, `D_deliver`, `P_method`, `status`) VALUES (?,?,?,?,?,?,?,?,?)";
+    }
 }
 ?>

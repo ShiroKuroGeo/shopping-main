@@ -11,6 +11,10 @@ if (isset($_POST['choice'])) {
             $backend = new user();
             echo $backend->doRegister($_POST['Firsname'],$_POST['Lastname'],$_POST['Username'],$_POST['Address'],$_POST['Phone'],$_POST['Email'],$_POST['Password']);
             break;
+        case 'doGetInfoUser':
+            $backend = new user();
+            echo $backend->doGetInfoUser();
+            break;
         case 'doAddToCart':
             $backend = new user();
             echo $backend->doAddToCart($_POST['product'], $_POST['user'], $_POST['image'], $_POST['title'], $_POST['price'], $_POST['qt'], $_POST['total']);
@@ -18,6 +22,10 @@ if (isset($_POST['choice'])) {
         case 'doClickProduct':
             $backend = new user();
             echo $backend->doClickProduct($_POST['Item']);
+            break;
+        case 'doCartTableToOrder':
+            $backend = new user();
+            echo $backend->doCartTableToOrder($_POST['Item']);
             break;
         case 'category':
             $backend = new user();
@@ -46,6 +54,34 @@ if (isset($_POST['choice'])) {
         case 'doDeleteCartQuery':
             $backend = new user();
             echo $backend->doDeleteCartQuery($_POST['ID']);
+            break;
+        case 'doInsertEcoPost':
+            $backend = new user();
+            echo $backend->doInsertEcoPost($_POST['Description'],$_POST['photo'],$_POST['video'],$_POST['status'],);
+            break;
+        case 'doGetDataEcoPost':
+            $backend = new user();
+            echo $backend->doGetDataEcoPost();
+            break;
+        case 'doGetEcoPostNewFeed':
+            $backend = new user();
+            echo $backend->doGetEcoPostTimeline();
+            break;
+        case 'doGetMessageLink':
+            $backend = new user();
+            echo $backend->doGetMessageLink($_POST['linkMessage']);
+            break;
+        case 'doChangeProfile':
+            $backend = new user();
+            echo $backend->doChangeProfile($_POST['photo']);
+            break;
+        case 'doSearchUser':
+            $backend = new user();
+            echo $backend->doSearchUser($_POST['User']);
+            break;
+        case 'doInsertOrder':
+            $backend = new user();
+            echo $backend->doInsertOrder($_POST['title'],$_POST['total_price'],$_POST['Qt'],$_POST['address'],$_POST['P_method'],$_POST['status']);
             break;
         case 'logout':
             session_unset();

@@ -1,2 +1,0 @@
-<?php
-$numoffiles = $_POST[]

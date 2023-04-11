@@ -19,6 +19,25 @@ include "functions/index_function.php";
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     </head>
     <body>
+    <div class="modal fade" id="addtocart" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add this Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="addthisItemToCart">
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="addThisProductToCart" class="btn btn-primary">Yes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            </div>
+            </div>
+        </div>
+    </div>
       <!-- header navbar start here-->
       <div class="header">
           <div class="container-fluid p-0">
@@ -94,7 +113,6 @@ include "functions/index_function.php";
             <div class="row-1">
             <?php
               product_image_1();
-              user(); 
             ?> 
             </div>
             <div class="row-2">

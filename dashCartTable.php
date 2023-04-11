@@ -20,17 +20,13 @@
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add this Product</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add this to Order</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div id="addthisItemToCart">
-                    Check Out
+                    
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" id="addThisProductToCart" class="btn btn-primary">Save changes</button>
             </div>
             </div>
         </div>
@@ -47,10 +43,12 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-2">
-                    <form class="d-flex" role="search" action="search.php" method="get">
-                        <input class="form-control  me-2" name="search" type="search" placeholder="Search here..." aria-label="Search">
-                        <input type="submit" name="search_now" value="search" class="button">
-                    </form>
+                    <div class="searchInbox">
+                        <div class="input-group input-group-sm">
+                            <input type="search" class="form-control" name="searchProduct" id="searchProduct" placeholder="Search here...">
+                            <button class="btn btn-outline-success " id="btnSearch">Search</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-7 d-flex justify-content-end align-items-end">
                     <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,17 +59,17 @@
                             <a class="nav-link active mt-1" aria-current="page" href="dashboard.php">Home</a>
                             <a class="nav-link active mt-1" href="product.php">Product</a>
                             <a class="nav-link active mt-1" href="dashCartTable.html"><i class="fa fa-shopping-cart" aria-hidden="true"><sup id="cartNumber"></sup></i></a>
-                            <a class="nav-link active" href="#"><img src="./images/profile.png" width="60px" class="profile" onclick="toggleMenu()"></a>
+                            <a class="nav-link active" href="#"><div class="profiles"></div></a>
                             <nav>
                                 <div class="sub-menu-wrap" id="subMenu">
                                     <div class="sub-menu">
                                         <div class="user-info">
-                                            <img src="./images/profile.png" class="profile" width="100px">
-                                            <h3 id="nameOfUser">Name</h3>
+                                            <div class="profiles"></div> 
+                                            <h3 id="nameOfUser"></h3>
                                         </div>
                                         <hr>
                                         <a href="./eco-post/index.php" class="sub-menu-link">
-                                            <img src="./images/profile.png" width="100px">
+                                            <div class="profiles"></div>
                                             <p>profile</p>
                                             <span>></span>
                                         </a>
@@ -117,8 +115,7 @@
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-end align-items-end">
-                    Total Cost:<span id="totalCostOfCart" class="ms-4 me-3"></span>
-                    <button type="button" class="btn btn-outline-success" id="checkOutItem" data-bs-toggle="modal" data-bs-target="#addCheckOut">Check Out</button>
+                    Total Cost:<div id="totalSum" class="fw-bold ps-2"> P</div><button id="checkPrice" class="ms-4 me-3 btn col-1">View total</button>
                 </div>
             </div>
         </div>
